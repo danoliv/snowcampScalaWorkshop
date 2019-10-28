@@ -1,24 +1,33 @@
 package game
 
-import graphic.{Color, Point}
+import graphic.{Color, GraphicContext, Point}
 import org.scalajs.dom
 import org.scalajs.dom.raw.HTMLCanvasElement
 
 import scala.collection.mutable
 
 class GameHolder(canvas: HTMLCanvasElement, gameMaker: (Point, () => Unit) => Game) {
-  private[this] val bounds = Point(canvas.width, canvas.height)
   private[this] val keys = mutable.Set.empty[Int]
-  var game: Game = gameMaker(bounds, () => resetGame())
 
-  canvas.onkeydown = { (e: dom.KeyboardEvent) =>
+  val graphicContext = GraphicContext(
+    canvas.getContext("2d").asInstanceOf[dom.CanvasRenderingContext2D],
+    Point(canvas.width, canvas.height)
+  )
+
+  var game: Game = gameMaker(graphicContext.bounds, () => resetGame())
+
+  canvas.addEventListener("keydown", keyPressed _, useCapture = false)
+  canvas.addEventListener("keyup", keyReleased _, useCapture = false)
+
+  def keyPressed(e: dom.KeyboardEvent) = {
     keys.add(e.keyCode.toInt)
-    if (Seq(32, 37, 38, 39, 40).contains(e.keyCode.toInt)) e.preventDefault()
+    e.preventDefault()
     message = None
   }
-  canvas.onkeyup = { (e: dom.KeyboardEvent) =>
+
+  def keyReleased(e: dom.KeyboardEvent) = {
     keys.remove(e.keyCode.toInt)
-    if (Seq(32, 37, 38, 39, 40).contains(e.keyCode.toInt)) e.preventDefault()
+    e.preventDefault()
   }
 
   canvas.onfocus = { (e: dom.FocusEvent) =>
@@ -28,20 +37,19 @@ class GameHolder(canvas: HTMLCanvasElement, gameMaker: (Point, () => Unit) => Ga
     active = false
   }
 
-  private[this] val ctx = canvas.getContext("2d").asInstanceOf[dom.CanvasRenderingContext2D]
   var active = false
   var firstFrame = false
 
   def update() = {
     if (!firstFrame) {
-      game.draw(ctx)
+      game.draw(graphicContext)
       firstFrame = true
     }
     if (active && message.isEmpty) {
-      game.draw(ctx)
+      game.draw(graphicContext)
       game.update(keys.toSet)
-      keys.clear()
     } else if (message.isDefined) {
+      import graphicContext._
       ctx.fillStyle = Color.Black
       ctx.fillRect(0, 0, bounds.x, bounds.y)
       ctx.fillStyle = Color.White
@@ -57,9 +65,9 @@ class GameHolder(canvas: HTMLCanvasElement, gameMaker: (Point, () => Unit) => Ga
 
   def resetGame(): Unit = {
     message = game.result
-    game = gameMaker(bounds, () => resetGame())
+    game = gameMaker(graphicContext.bounds, () => resetGame())
   }
 
-  ctx.font = "12pt Arial"
-  ctx.textAlign = "center"
+  graphicContext.ctx.font = "12pt Arial"
+  graphicContext.ctx.textAlign = "center"
 }

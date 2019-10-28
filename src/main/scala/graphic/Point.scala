@@ -21,11 +21,16 @@ case class Point(x: Double, y: Double) {
 
   def dot(other: Point) = x * other.x + y * other.y
 
+  def limit(min: Point, max: Point) = Point(
+    x.max(min.x).min(max.x),
+    y.max(min.y).min(max.y)
+  )
+
   def length = Math.sqrt(lengthSquared)
 
   def lengthSquared = x * x + y * y
 
-  def within(a: Point, b: Point, extra: Point = Point(0, 0)) = {
+  def within(a: Point, b: Point = Point(0, 0), extra: Point = Point(0, 0)) = {
     import math.{max, min}
     x >= min(a.x, b.x) - extra.x &&
       x < max(a.x, b.x) + extra.y &&

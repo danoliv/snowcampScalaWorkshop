@@ -4,6 +4,6 @@ import org.scalajs.dom
 
 trait Drawable {
 
-  def draw(ctx: dom.CanvasRenderingContext2D, bounds: Point) : Unit
+  def draw(ctx: GraphicContext) : Unit
 
 }

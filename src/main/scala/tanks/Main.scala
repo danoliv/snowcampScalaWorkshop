@@ -13,7 +13,7 @@ object Main {
     val canvas = d.getElementById("canvas").asInstanceOf[html.Canvas]
 
     val tanks = new GameHolder(canvas, Tanks)
-    timers.setInterval(15)({
+    timers.setInterval(10)({
       tanks.update()
     })
   }
