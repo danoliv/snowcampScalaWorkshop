@@ -7,7 +7,8 @@ import org.scalajs.dom.raw.HTMLCanvasElement
 import scala.collection.mutable
 
 class GameHolder(canvas: HTMLCanvasElement, gameMaker: (Point, () => Unit) => Game) {
-  private[this] val keys = mutable.Set.empty[Int]
+  private[this] val pressedKeys = mutable.Set.empty[Int]
+  private[this] val releasedKeys = mutable.Set.empty[Int]
 
   val graphicContext = GraphicContext(
     canvas.getContext("2d").asInstanceOf[dom.CanvasRenderingContext2D],
@@ -20,13 +21,14 @@ class GameHolder(canvas: HTMLCanvasElement, gameMaker: (Point, () => Unit) => Ga
   canvas.addEventListener("keyup", keyReleased _, useCapture = false)
 
   def keyPressed(e: dom.KeyboardEvent) = {
-    keys.add(e.keyCode.toInt)
+    pressedKeys.add(e.keyCode)
     e.preventDefault()
     message = None
   }
 
   def keyReleased(e: dom.KeyboardEvent) = {
-    keys.remove(e.keyCode.toInt)
+    pressedKeys.remove(e.keyCode)
+    releasedKeys.add(e.keyCode)
     e.preventDefault()
   }
 
@@ -47,7 +49,8 @@ class GameHolder(canvas: HTMLCanvasElement, gameMaker: (Point, () => Unit) => Ga
     }
     if (active && message.isEmpty) {
       game.draw(graphicContext)
-      game.update(keys.toSet)
+      game.update(pressedKeys.toSet, releasedKeys.toSet)
+      releasedKeys.clear()
     } else if (message.isDefined) {
       import graphicContext._
       ctx.fillStyle = Color.Black

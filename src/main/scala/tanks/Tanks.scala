@@ -8,28 +8,37 @@ case class Tanks(bounds: Point, resetGame: () => Unit) extends Game {
   val speed = 2
   val rotation = math.Pi / 64
   var myTank = Tank(
-    Point(0, 0), math.Pi / 2,
-    Point(bounds.x / 16, bounds.y / 32),
+    Point(bounds.x / 2.0, bounds.y / 2.0), math.Pi / 2,
+    Point(bounds.y / 12, bounds.y / 24),
     bounds
   )
 
-  override def update(keys: Set[Int]): Unit = {
+  var bullets: Set[Bullet] = Set()
+
+  override def update(pressedKeys: Set[Int], releasedKeys: Set[Int]): Unit = {
     import Key._
-    if (keys.nonEmpty) println(keys)
+    if (pressedKeys.nonEmpty) println(pressedKeys)
 
-    myTank = myTank.update()
-
-    myTank = keys.foldLeft(myTank) { case (t, key) =>
+    myTank = pressedKeys.foldLeft(myTank) { case (t, key) =>
       key match {
         case `up` => t.move(speed)
         case `down` => t.move(-speed)
         case `left` => t.rotation(-rotation)
         case `right` => t.rotation(rotation)
-        case `space` => t.shoot(speed)
         case _ => t
       }
     }
 
+    val oldBullets = bullets
+      .map(_.update)
+      .filter(_.position.within(bounds))
+
+    val newBullets = releasedKeys.flatMap {
+      case `space`  => Some(myTank.shoot(2 * speed))
+      case _ => None
+    }
+
+    bullets = oldBullets ++ newBullets
   }
 
   override def draw(graphicContext: GraphicContext): Unit = {
@@ -41,5 +50,7 @@ case class Tanks(bounds: Point, resetGame: () => Unit) extends Game {
       ctx.strokeStyle = Color.White
     }
     myTank.draw(graphicContext)
+
+    bullets.foreach(_.draw(graphicContext))
   }
 }

@@ -3,24 +3,12 @@ package tanks
 import graphic.Draw._
 import graphic.{Box, Drawable, GraphicContext, Point}
 
-case class Tank(position: Point, angle: Double, size: Point, bounds: Point, bullets: Set[Bullet] = Set())
+case class Tank(position: Point, angle: Double, size: Point, bounds: Point)
   extends Drawable {
 
-  def update() : Tank = {
-    val newBullets = bullets
-      .map(_.update)
-      .filter(_.position.within(bounds))
-
-    copy(bullets = newBullets)
-  }
-
-  def shoot(speed: Double): Tank = {
-    val newBullets = if (bullets.isEmpty) {
-      val momentum = Point(speed, 0).rotate(angle)
-      Set(Bullet(position, momentum))
-    } else bullets
-
-    copy(bullets = newBullets)
+  def shoot(speed: Double): Bullet = {
+    val momentum = Point(speed, 0).rotate(angle)
+    Bullet(position, momentum)
   }
 
   def boundingBox() : Box = Tank.boundingBox(position, angle, size)
@@ -50,8 +38,6 @@ case class Tank(position: Point, angle: Double, size: Point, bounds: Point, bull
     }
 
     boundingBox().draw(ctx)
-
-    bullets.foreach(_.draw(ctx))
   }
 }
 
