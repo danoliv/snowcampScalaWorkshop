@@ -1,44 +1,69 @@
 package tanks
 
 import game.{Game, Key}
-import graphic.{Box, Color, Draw, Drawable, GraphicContext, Point}
-import graphic.Draw._
+import graphic.{Color, GraphicContext, Point}
 
 case class Tanks(bounds: Point, resetGame: () => Unit) extends Game {
-  val speed = 2
-  val rotation = math.Pi / 64
-  var myTank = Tank(
-    Point(bounds.x / 2.0, bounds.y / 2.0), math.Pi / 2,
-    Point(bounds.y / 12, bounds.y / 24),
-    bounds
+
+  val name = "TANKS"
+  var result: Option[String] = None
+  val tankSize = Point(bounds.y / 12, bounds.y / 24)
+
+  var level = 1
+
+  var myTank = MyTank(
+    position = Point(tankSize.x, bounds.y / 2),
+    angle = 0,
+    size = tankSize
   )
+
+  var enemies = initEnemies(level)
+
+  def initEnemies(num: Int) = {
+    println(s"init $num enemies")
+    val space = bounds.y / (num + 1)
+
+    (1 to num).map { i =>
+      EnemyVehicle(
+        position = Point(bounds.x - tankSize.x, space * i),
+        angle = math.Pi,
+        size = tankSize
+      )
+    }
+  }
 
   var bullets: Set[Bullet] = Set()
 
   override def update(pressedKeys: Set[Int], releasedKeys: Set[Int]): Unit = {
-    import Key._
-    if (pressedKeys.nonEmpty) println(pressedKeys)
-
-    myTank = pressedKeys.foldLeft(myTank) { case (t, key) =>
-      key match {
-        case `up` => t.move(speed)
-        case `down` => t.move(-speed)
-        case `left` => t.rotation(-rotation)
-        case `right` => t.rotation(rotation)
-        case _ => t
-      }
-    }
+    val (updatedTank, newBullets) = myTank.update(pressedKeys, releasedKeys, bounds)
 
     val oldBullets = bullets
       .map(_.update)
       .filter(_.position.within(bounds))
 
-    val newBullets = releasedKeys.flatMap {
-      case `space`  => Some(myTank.shoot(2 * speed))
-      case _ => None
-    }
+    val movedEnemies = enemies.map(_.update(myTank.position, bounds))
 
-    bullets = oldBullets ++ newBullets
+    val updatedBullets = oldBullets ++ newBullets
+
+    val destroyed = movedEnemies.filter(enemy =>
+      updatedBullets.exists(_.collide(enemy))
+    )
+
+    val remainingEnemies = (movedEnemies diff destroyed)
+
+    //check collisions
+    if (movedEnemies.exists(_.collide(myTank))) {
+      result = Some("GAME OVER")
+      resetGame()
+    } else {
+      bullets = updatedBullets
+      myTank = updatedTank
+      enemies = if (remainingEnemies.isEmpty) {
+        level += 1
+        bullets = Set()
+        initEnemies(level)
+      } else remainingEnemies
+    }
   }
 
   override def draw(graphicContext: GraphicContext): Unit = {
@@ -51,6 +76,7 @@ case class Tanks(bounds: Point, resetGame: () => Unit) extends Game {
     }
     myTank.draw(graphicContext)
 
+    enemies.foreach(_.draw(graphicContext))
     bullets.foreach(_.draw(graphicContext))
   }
 }

@@ -6,4 +6,5 @@ object Key {
   val left = 37
   val right = 39
   val space = 32
+  val enter = 13
 }

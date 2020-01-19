@@ -17,6 +17,8 @@ libraryDependencies ++= Seq(
 skip in packageJSDependencies := false
 //jsDependencies += "org.webjars" % "jquery" % "2.2.1" / "jquery.js" minified "jquery.min.js"
 
-jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv()
+workbenchStartMode := WorkbenchStartModes.OnCompile
+
+//jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv()
 
 testFrameworks += new TestFramework("utest.runner.Framework")

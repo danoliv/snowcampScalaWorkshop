@@ -31,6 +31,14 @@ object Draw {
     canvas.rect(center.x - w/2, center.y - h/2, w, h)
   }
 
+  def rectangle(topLeft: Point, bottomRight: Point)(implicit canvas: Canvas) : Unit = stroke {
+    canvas.rect(topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y)
+  }
+
+  def text(message: String, start: Point)(implicit canvas: Canvas): Unit = {
+    canvas.fillText(message, start.x, start.y)
+  }
+
   def rotate(angle: Double, center: Point)(implicit canvas: Canvas): Unit = {
     canvas.translate(center.x, center.y)
     canvas.rotate(angle)

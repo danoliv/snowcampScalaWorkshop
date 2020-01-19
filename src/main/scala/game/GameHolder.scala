@@ -11,8 +11,9 @@ class GameHolder(canvas: HTMLCanvasElement, gameMaker: (Point, () => Unit) => Ga
   private[this] val releasedKeys = mutable.Set.empty[Int]
 
   val graphicContext = GraphicContext(
-    canvas.getContext("2d").asInstanceOf[dom.CanvasRenderingContext2D],
-    Point(canvas.width, canvas.height)
+    ctx = canvas.getContext("2d").asInstanceOf[dom.CanvasRenderingContext2D],
+    bounds = Point(canvas.width, canvas.height),
+    debug = true
   )
 
   var game: Game = gameMaker(graphicContext.bounds, () => resetGame())
@@ -23,7 +24,9 @@ class GameHolder(canvas: HTMLCanvasElement, gameMaker: (Point, () => Unit) => Ga
   def keyPressed(e: dom.KeyboardEvent) = {
     pressedKeys.add(e.keyCode)
     e.preventDefault()
-    message = None
+    if (e.keyCode == Key.enter) {
+      message = None
+    }
   }
 
   def keyReleased(e: dom.KeyboardEvent) = {
@@ -40,13 +43,15 @@ class GameHolder(canvas: HTMLCanvasElement, gameMaker: (Point, () => Unit) => Ga
   }
 
   var active = false
-  var firstFrame = false
+  var firstFrame = true
 
   def update() = {
-    if (!firstFrame) {
+    if (firstFrame) {
+      message = Some(game.name)
       game.draw(graphicContext)
-      firstFrame = true
+      firstFrame = false
     }
+
     if (active && message.isEmpty) {
       game.draw(graphicContext)
       game.update(pressedKeys.toSet, releasedKeys.toSet)
@@ -60,7 +65,7 @@ class GameHolder(canvas: HTMLCanvasElement, gameMaker: (Point, () => Unit) => Ga
       ctx.textAlign = "center"
       ctx.fillText(message.get, bounds.x / 2, bounds.y / 2)
       ctx.font = "14pt Arial"
-      ctx.fillText("Press any key to continue", bounds.x / 2, bounds.y / 2 + 30)
+      ctx.fillText("Press return to continue", bounds.x / 2, bounds.y / 2 + 30)
     }
   }
 
