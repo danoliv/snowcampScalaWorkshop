@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>TANK</title>
+  <meta charset="utf-8">
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+    @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+    @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+    body {
+      font-family: 'Droid Serif';
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Yanone Kaffeesatz';
+      font-weight: normal;
+    }
+
+    .remark-code,
+    .remark-inline-code {
+      font-family: 'Ubuntu Mono';
+    }
+
+    table {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      border-collapse: collapse;
+      border-spacing: 100;
+      border: 1px solid #000;
+    }
+
+    th {
+      border: 1px solid #000;
+      color: #000;
+    }
+
+    th:nth-child(1) {
+      color: green;
+    }
+
+    th:nth-child(2) {
+      color: red;
+    }
+
+
+    th:nth-child(3) {
+      color: blue;
+    }
+
+    td {
+      border: 1px solid #000;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 12px;
+      left: 20px
+    }
+  </style>
+</head>
+
+<body>
+  <textarea id="source">
+
+layout: true
+
+<div class="footer"><img src="img/KelkooGroupLogo.png" height="50px"/></div>
+---
+
+class: center, middle
+
+# TANK, the game
+
+---
+
+# Table of content
+
+1. Run the game
+1. bullets should move
+1. ops but also enemies
+1. but we will destroy them !
+1. OMG we need to move
+1. turn, turn, turn !!!
+
+---
+
+# Run the game
+
+- launch `sbt ~fastOptJS`
+- open the browser on http://localhost:12345/index-dev.html
+- click on the canvas to play with the keyboard (arrows to move, space to shoot)
+- when you modify the code the page will reload automatically
+
+---
+
+# bullets should move
+
+- open `Tanks.scala`
+- complete function `updateBullets`
+- hint look at `Bullet`
+- remove the bullets that go away
+
+---
+
+# ops but also enemies
+- open `Tanks.scala`
+- complete function `updateEnemies`
+- hint look at `EnemyVehicle`
+- also, they can see our position
+
+---
+
+# but we will destroy them !
+- open `Tanks.scala`
+- complete function `destroyEnemies`
+- hint look at `Drawable`
+
+---
+
+# OMG we need to move
+- open `MyTank.scala`
+- implement `computePosition`
+- hint look at `Key`, pattern matching
+- bonus use `foldLeft`
+
+---
+
+# turn, turn, turn !!!
+- open `MyTank.scala`
+- implement `computeAngle`
+- hint look at `computePosition`
+- bonus use `foldLeft`
+---
+
+# Thanks !!!
+
+---
+
+</textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js">
+</script>
+<script>
+    var slideshow = remark.create();
+</script>
+</body>
+</html>
+ 
