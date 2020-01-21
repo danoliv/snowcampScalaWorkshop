@@ -1,5 +1,9 @@
-image: mozilla/sbt
+ports:
+  - port: 12345
+    onOpen: open-preview
 vscode:
   extensions:
     - scala-lang.scala@0.3.8:wQBBM+lKILHBqOqlqW60xA==
     - scalameta.metals@1.7.2:ORs01tzkKl6fAKyhAExj+w==
+tasks:
+  - command: sdk install sbt
