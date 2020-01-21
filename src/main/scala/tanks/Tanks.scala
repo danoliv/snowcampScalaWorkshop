@@ -19,7 +19,7 @@ case class Tanks(bounds: Point, resetGame: () => Unit) extends Game {
 
   var enemies = initEnemies(level)
 
-  def initEnemies(num: Int) = {
+  def initEnemies(num: Int): Seq[EnemyVehicle] = {
     println(s"init $num enemies")
     val space = bounds.y / (num + 1)
 
@@ -34,20 +34,23 @@ case class Tanks(bounds: Point, resetGame: () => Unit) extends Game {
 
   var bullets: Set[Bullet] = Set()
 
+  //TODO 1) update bullets and return only bullets within bounds
+  def updateBullets: Set[Bullet] = bullets
+
+  //TODO 2) update enemies positions
+  def updateEnemies: Seq[EnemyVehicle] = enemies
+
+  // TODO 3) return only destroyed enemies, use collide method
+  def destroyEnemies: Seq[EnemyVehicle] = Seq()
+
   override def update(pressedKeys: Set[Int], releasedKeys: Set[Int]): Unit = {
-    val (updatedTank, newBullets) = myTank.update(pressedKeys, releasedKeys, bounds)
+    val (updatedTank, shootedBullets) = myTank.update(pressedKeys, releasedKeys, bounds)
 
-    val oldBullets = bullets
-      .map(_.update)
-      .filter(_.position.within(bounds))
+    val movedEnemies = updateEnemies
 
-    val movedEnemies = enemies.map(_.update(myTank.position, bounds))
+    val newBullets = updateBullets ++ shootedBullets
 
-    val updatedBullets = oldBullets ++ newBullets
-
-    val destroyed = movedEnemies.filter(enemy =>
-      updatedBullets.exists(_.collide(enemy))
-    )
+    val destroyed = destroyEnemies
 
     val remainingEnemies = (movedEnemies diff destroyed)
 
@@ -56,7 +59,7 @@ case class Tanks(bounds: Point, resetGame: () => Unit) extends Game {
       result = Some("GAME OVER")
       resetGame()
     } else {
-      bullets = updatedBullets
+      bullets = newBullets
       myTank = updatedTank
       enemies = if (remainingEnemies.isEmpty) {
         level += 1

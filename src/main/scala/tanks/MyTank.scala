@@ -12,28 +12,23 @@ case class MyTank(
 
   val maxSpeed = 2.5
 
-  def shoot(speed: Double): Bullet = {
-    val momentum = Point(speed, 0).rotate(angle)
-    Bullet(position, momentum)
+  def shoot(bulletSpeed: Double): Bullet = {
+    val startPosition = position + Point(size.x / 2.0, 0).rotate(angle)
+    val momentum = Point(bulletSpeed, 0).rotate(angle)
+    Bullet(startPosition, momentum)
   }
+
+  // TODO 4) compute the new position by combining up and down keys
+  def computePosition(pressedKeys: Set[Int]): Point = position
+
+  // TODO 5) compute the new angle by combining left and right keys
+  def computeAngle(pressedKeys: Set[Int]): Double = angle
 
   def update(pressedKeys: Set[Int], releasedKeys: Set[Int], bounds: Point): (MyTank, Set[Bullet]) = {
     import Key._
-    val newPosition = pressedKeys.foldLeft(position) { case (currPosition, key) =>
-      key match {
-        case `up` => move(currPosition, maxSpeed, bounds)
-        case `down` => move(currPosition, -maxSpeed, bounds)
-        case _ => currPosition
-      }
-    }
+    val newPosition = computePosition(pressedKeys)
 
-    val newAngle = pressedKeys.foldLeft(angle) { case (currAngle, key) =>
-      key match {
-        case `left` => rotation(currAngle, -stepRotation)
-        case `right` => rotation(currAngle, stepRotation)
-        case _ => currAngle
-      }
-    }
+    val newAngle = computeAngle(pressedKeys)
 
     val newTank = copy(position = newPosition, angle = newAngle)
 
