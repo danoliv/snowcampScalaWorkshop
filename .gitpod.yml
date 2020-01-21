@@ -1,4 +1,4 @@
-image: danoliv/scalajs
+image: mozilla/sbt
 vscode:
   extensions:
     - scala-lang.scala@0.3.8:wQBBM+lKILHBqOqlqW60xA==
