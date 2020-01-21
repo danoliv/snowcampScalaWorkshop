@@ -13,7 +13,7 @@ class GameHolder(canvas: HTMLCanvasElement, gameMaker: (Point, () => Unit) => Ga
   val graphicContext = GraphicContext(
     ctx = canvas.getContext("2d").asInstanceOf[dom.CanvasRenderingContext2D],
     bounds = Point(canvas.width, canvas.height),
-    debug = true
+    debug = false
   )
 
   var game: Game = gameMaker(graphicContext.bounds, () => resetGame())
