@@ -1,6 +1,6 @@
 enablePlugins(ScalaJSPlugin, WorkbenchPlugin)
 
-name := "playWithScala"
+name := "tanksjs"
 
 version := "0.1"
 

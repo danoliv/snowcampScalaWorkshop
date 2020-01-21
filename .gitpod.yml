@@ -1,0 +1,8 @@
+image: danoliv/scalajs
+vscode:
+  extensions:
+ports:
+  - port: 12345
+    onOpen: open-preview
+tasks:
+#- command: bloop
