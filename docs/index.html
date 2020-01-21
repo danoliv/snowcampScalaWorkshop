@@ -98,6 +98,7 @@ class: center, middle
 
 ---
 
+# Scala is ...
 ## Object Oriented
 
 In Scala EVERYTHING is an object, even a function.
@@ -106,9 +107,10 @@ Also multiple-inheritance is possible !
 
 ---
 background-image: url(img/objectsEverywhere.jpg)
-## Object Oriented
+# Scala is ...
 ---
 
+# Scala is ...
 ## Functional
 
 Functions are first-class objects.
@@ -117,9 +119,10 @@ Function can be composed, passed as argument, curried...
 
 ---
 background-image: url(img/highOrderFunction.jpg)
-## Functional
+# Scala is ...
 ---
 
+# Scala is ...
 ## Statically Typed
 
 with type inference :
@@ -127,17 +130,35 @@ with type inference :
 Let the compiler work for you.
 
 ---
+
 background-image: url(img/staticVsDynamic.jpg)
+# Scala is ...
 ## Statically Typed
+
 ---
+
 background-image: url(img/soItBegins.jpg)
 # Getting started
 
 ---
 
-## Reference Book
+## References
 
-### Essential Scala : https://underscore.io/books/essential-scala/
+- Essential Scala book:
+
+    https://underscore.io/books/essential-scala/
+
+- Github Repository :
+
+    https://github.com/danoliv/snowcampScalaWorkshop
+
+- Gitpod cloud environment :
+
+    https://gitpod.io/#https://github.com/danoliv/snowcampScalaWorkshop
+
+- This presentation :
+
+    https://danoliv.github.io/snowcampScalaWorkshop
 
 ---
 
@@ -156,7 +177,6 @@ Create a Scala Worksheet :
 ---
 
 # Expressions, types and values
-
 ## Your First Program
 
 In the Scala console or worksheet enter "Hello world!" and press return.
@@ -166,34 +186,6 @@ You should see an interaction similar to this:
 ```scala
 "Hello world!" //Hello world!
 ```
-
----
-
-# Expressions, types and values
-
-Let’s look at a slightly more complex program :
-
-```scala
-"Hello world!".toUpperCase //HELLO WORLD!
-```
-
----
-
-# Expressions, types and values
-
-### Expressions
-
-Expressions are part of a program’s text. They are the main components of a Scala program.
-Expressions exist at compile time.
-
-### Values 
-
-An expression evaluates to a value. A value is information stored in the computer’s memory. It exists at runtime.  
-Expressions have types but values do not.
-
-### Types
-
-In Scala all values are objects. Types are restrictions on our programs that limit how we can manipulate objects.  
 
 ---
 
@@ -224,16 +216,38 @@ We see that the expression `2 / 0` has type Int even though this expression fail
 
 ---
 
-# Objects
+# Expressions, types and values
 
-An object is a grouping of data and operations on that data. For example, 2
-is an object. The data is the integer 2, and the operations on that data are familiar operations like + and -.
+### Expressions
+
+Expressions are part of a program’s text. They are the main components of a Scala program.
+Expressions exist at compile time.
+
+### Values
+
+An expression evaluates to a value. A value is information stored in the computer’s memory. It exists at runtime.
+In Scala all values are objects.
+
+### Types
+
+Types are restrictions on our programs that limit how we can manipulate objects.
+
+---
+
+# Expressions, types and values
+## Objects
+
+An object is a grouping of data and operations on that data.
+
+For example, 2 is an object. The data is the integer 2, and the operations
+on that data are familiar operations like + and -.
 
 The operations are known as methods. The data is stored in fields.
 
 ---
 
-# Method calls
+# Expressions, types and values
+## Method calls
 
 We interact with objects by calling methods. 
 
@@ -254,80 +268,67 @@ Some methods accept parameters or arguments :
 
 Note : some methods return Unit.
 
-Unit, written `()`, is the Scala equivalent of Java’s void.
+*Unit, written `()`, is the Scala equivalent of Java’s void.*
 
 ---
 
-# Object Literals
+# Expressions, types and values
+## Object Literals
 
-When we write an object literal we use a declaration, which is a different kind of
-program to an expression. A declaration does not evaluate to a value. Instead
-it associates a name with a value. This name can then be used to refer to the
-value in other code.
+To define an object literal we use a declaration, which is a different kind of
+program to an expression.
 
-We can declare an empty object as follows:
+A declaration associate a name with a value.
+
+This name can then be used to refer to the value in other code.
 
 ```scala
-object Test {}
+object Language {}
 ```
+Now that we have declared Language we can use it in expressions :
 
----
-
-# Object Literals
-
-Once we have bound the name Test we can use it in expressions, where it
-evaluates to the object we have declared. The simplest expression is just the
-name on its own, which evaluates to the value itself:
 
 ```scala
-Test //res0: Test.type = Test$@137617d4
+Language //res0: Language.type = Language@137617d4
 ```
 
-Note that `Test.type` is a type created just for our object, called a singleton type.
+Note : `Language.type` is a type created just for our object, called a *singleton type*.
+
 
 ---
 
+# Expressions, types and values
 ## Methods
 
 We interact with objects via methods so let’s create an object with a method.
 
 ```scala
-object Test2 {
-  def name: String = "Probably the best object ever"
+object Language {
+  def name(name: String): String = "Probably " + name + " is the best language ever"
 }
 ```
 
 Here we’ve create a method called name . We can call it in the usual way.
 
 ```scala
-Test2.name //Probably the best object ever
+Language.name("Scala") //Probably Scala is the best language ever
 ```
 
 ---
 
-## Methods
-
-Here’s an object with a more complex method:
-
-```scala
-object Test3 {
-def hello(name: String) =
-"Hello " + name
-}
-
-Test3.hello("Noel") //Hello Noel
-```
-
----
-
+# Expressions, types and values
 ## Fields 
 
-An object can also contain other objects, called fields. We introduce these using the keywords val or var, which look similar to def:
+An object can also contain other objects, called fields.
+
+We introduce these using the keywords val or var, which look similar to def:
 
 
 ```scala
 object Test4 {
-  val name = "Noel"
+  val name = "Noel" // this cannot be change
+  var age = 20 // this can be change
+
   def hello(other: String): String =
     name + " says hi to " + other
 }
@@ -341,27 +342,22 @@ Test4.hello("Dave") // Noel says hi to Dave
 
 ---
 
-# Conditionals
+# Expressions, types and values
+## Conditionals
 
-A conditional allows us to choose an expression to evaluate based on some condition. For example, we can choose a string based on which of two numbers is the smallest.
+A conditional allows us to choose an expression to evaluate based on some condition.
+
+For example, we can choose a string based on which of two numbers is the smallest.
 
 
 ```scala
-if(1 < 2) "Yes" else "No"
+val answer = if(1 < 2) "Yes" else "No"
 ```
  
-Scala’s if statement has the same syntax as Java’s. One important difference is that Scala’s conditional is an expression—it has a type and returns a value.
+Scala’s if statement has the same syntax as Java’s.
 
----
-
-# Conditionals 
-
-The expression that is not selected does not get evaluated. This is apparent if we use an expression with a side-effect.
-
-```scala
-if(1 < 2) println("Yes") else println("No")
-// Yes
-```
+One important difference is that *Scala’s conditional is an expression* therefore
+it has a type and returns a value.
 
 ---
 
@@ -369,12 +365,12 @@ if(1 < 2) println("Yes") else println("No")
 
 ---
 
-# Blocks 
+# Expressions, types and values
+## Blocks
 
-Blocks are expressions that allow us to sequence computations together. They are written as a pair of braces containing sub-expressions separated by semicolons or newlines.
+A block is a sequence of expressions or declarations surrounded by braces.
 
-Examples : 
-
+It executes each of its sub-expressions in order and returns the value of the last one.
 ```scala
 {
   println("This is a side-effect")
@@ -393,9 +389,11 @@ def name: String = {
 
 ---
 
-# Classes
+# Object and Classes
+## Classes
 
-A class is a template for creating objects that have similar methods and fields. In Scala a class also defines a type, and objects created from a class all share the same type.
+A class is a template for creating objects that have similar methods and fields.
+In Scala a class also defines a type, and objects created from a class all share the same type.
 
 Here is a declaration for a simple Person class:
 
@@ -407,24 +405,8 @@ class Person {
 }
 ```
 
----
-
-# Classes
-
-Like an object declaration, a class declaration binds a name (in this case Person) and is not an expression. However, unlike an object name, we cannot use a class name in an expression. A class is not a value, and there is a different namespace in which classes live.
-
-```scala
-Person
-// <img src="img/highOrderFunction.jpg" height="389" width="642"/><img src="img/highOrderFunction.jpg" height="389" width="642"/><console>:13: error: not found: value Person
-//        Person
-//        ^
-```
-
----
-
-# Classes
-
-We can create a new Person object using the new operator. Objects are values and we access their methods and fields in the usual way:
+We can create a new Person object using the new operator and
+we can access their methods and fields in the usual way :
 
 ```scala
 val noel = new Person
@@ -434,7 +416,8 @@ noel.firstName // Noel
 
 ---
 
-# Classes
+# Object and Classes
+## Classes
 
 We can write a method that takes any Person as a parameter:
 
@@ -451,7 +434,8 @@ alien.greet(noel) // Greetings, Noel Welsh
 
 ---
 
-### Constructors
+# Object and Classes
+## Constructors
 
 A constructor allows us to pass parameters to new objects as we create them: 
 
@@ -469,11 +453,13 @@ val dave = new Person("Dave", "Gurnell")
 dave.name // Dave Gurnell
 ```
 
-Note : The constructor parameters first and last can only be used within the body of the class. We must declare a field or method using val or def to access data from outside the object.
+Note : The constructor parameters can only be used within the body of the class.
+We must declare a field or method using `val` or `def` to access data from outside the object.
 
 ---
 
-### Constructors 
+# Object and Classes
+## Constructors
 
 Constructor arguments and fields are often redundant. Scala provides a short-hand way of declaring both in one go. 
 We can prefix constructor parameters with the val keyword to have Scala define fields for them automatically:
@@ -486,15 +472,18 @@ class Person(val firstName: String, val lastName: String) {
 new Person("Dave", "Gurnell").firstName // Dave
 ```
 
-Note : `val` fields are immutable : they are initialized once after which we cannot change their values. Scala also provides the `var` keyword for defining mutable fields.
+Note : `val` fields are immutable : they are initialized once after which we cannot change their values.
+Scala also provides the `var` keyword for defining mutable fields.
 
 ---
 
-### Default and Keyword Parameters
+# Object and Classes
+## Default and Keyword Parameters
 
 All Scala methods and constructors support keyword parameters and default parameter values.
 
-When we call a method or constructor, we can use parameter names as keywords to specify the parameters in an arbitrary order:
+When we call a method or constructor, we can use parameter names as keywords to specify the parameters in an arbitrary
+order:
 
 ```scala
 new Person(lastName = "Last", firstName = "First")
@@ -509,7 +498,8 @@ def greet(firstName: String = "Some", lastName: String = "Body") =
 
 ---
 
-### Default and Keyword Parameters
+# Object and Classes
+## Default and Keyword Parameters
 
 If a parameter has a default value we can omit it in the method call:
 
@@ -528,17 +518,18 @@ greet(lastName = "Dave") // Greetings, Some Dave!
 
 ---
 
+# Object and Classes
 ## Objects as Functions
 
-### The apply method
 
-In Scala, by convention, an object can be “called” like a function if it has a method called apply. Naming a method apply affords us a special shortened call syntax: foo.apply(args) becomes foo(args).
-
+In Scala, by convention, an object can be “called” like a function if it has a method called **apply**.
 ```scala
 class Adder(amount: Int) {
   def apply(in: Int): Int = in + amount
 }
 ```
+
+Naming a method apply affords us a special shortened call syntax: `foo.apply(args)` becomes `foo(args)`.
 
 ```scala
 val add3 = new Adder(3)
@@ -549,11 +540,12 @@ add3(4)
 ```
 ---
 
+# Object and Classes
 ## Companion objects
 
 Sometimes we want to create a method that logically belongs to a class but is independent of any particular object.  
 
-In Java we would use a static method for this, but Scala has a simpler solution that we’ve seen already: singleton objects.
+In Java we would use a static method for this, but Scala has a simpler: **singleton objects**.
 
 Example : auxiliary constructors
 
@@ -570,12 +562,15 @@ Timestamp(1, 1, 1).seconds
 
 ---
 
+# Object and Classes
 ## Case Classes
 
-Case classes are an exceptionally useful shorthand for defining a class, a companion object, and a lot of sensible defaults in one go. They are ideal for creating lightweight data-holding classes with the minimum of hassle.
+Case classes are an exceptionally useful shorthand for defining a class, a companion object,
+and a lot of sensible defaults in one go.
 
-Case classes are created simply by prepending a class definition with the keyword case :
+They are ideal for creating lightweight data-holding classes with the minimum of hassle.
 
+Case classes are created simply by prepending a class definition with the keyword `case` :
 
 ```scala
 case class Person(firstName: String, lastName: String) {
@@ -583,75 +578,76 @@ case class Person(firstName: String, lastName: String) {
 }
 ```
 
-Whenever we declare a case class, Scala automatically generates a class and companion object.  
-What’s more, the class and companion are pre-populated with some very useful features.
+Whenever we declare a case class, Scala automatically generates a class and companion object.
 
 ---
 
-### Features of a case class
+# Object and Classes
+## Features of a case class
 
- * A field for each constructor argument—we don’t even need to write val in our constructor definition, although there’s no harm in doing so
+ * A *public* field for each constructor argument
 
-```scala
-dave.firstName // Dave
-```
+  ```scala
+  dave.firstName // Dave
+  ```
 
+ * A default `toString` method (no more @ signs and cryptic hex numbers):
 
- * A default `toString` method that prints a sensible constructor-like representation of the class (no more @ signs and cryptic hex numbers):
-
-```scala
-dave // Person(Dave,Gurnell)
-```
+  ```scala
+  dave // Person(Dave,Gurnell)
+  ```
 
 ---
 
-### Features of a case class
+# Object and Classes
+## Features of a case class
 
 * Sensible `equals`, and `hashCode` methods that operate on the field values in the object
+  so can compare objects on the basis of their contents rather than their reference identity.
 
-  This makes it easy to use case classes with collections like Lists, Sets and Maps. It also means we can compare objects on the basis of their contents rather than their reference identity.
+  ```scala
+  new Person("Noel", "Welsh").equals(new Person("Noel", "Welsh") )// true
 
-```scala
-new Person("Noel", "Welsh").equals(new Person("Noel", "Welsh") )// true
-
-new Person("Noel", "Welsh") == new Person("Noel", "Welsh") // true
-```
-
----
-
-### Features of a case class
-
-* A copy method that creates a new object with the same field values as the current one 
-
- ```scala
- dave.copy() // Person(Dave,Gurnell)
- ```
-
-  Note that the copy method creates and returns a new object of the class rather than returning the current one.
-
-  The copy method actually accepts optional parameters matching each of the constructor parameters.  
-  If a parameter is specified the new object uses that value instead of the existing value from the current object. 
-
-
-```scala
-dave.copy(firstName = "Dave2") // Person(Dave2,Gurnell)
-
-dave.copy(lastName = "Gurnell2") // Person(Dave,Gurnell2)
-```
+  new Person("Noel", "Welsh") == new Person("Noel", "Welsh") // true
+  ```
 
 ---
 
-### Features of a case class companion object
+# Object and Classes
+## Features of a case class
 
-The companion object contains an apply method with the same arguments as the class constructor. Scala programmers tend to prefer the apply method over the constructor for the brevity of omitting new, which makes constructors much easier to read inside expressions:
+* A copy method that creates a *new object* with the same field values as the current one
 
-```scala
-Person("Dave", "Gurnell") == Person("Noel", "Welsh") // false
+  ```scala
+  dave.copy() // Person(Dave,Gurnell)
+  ```
 
-Person("Dave", "Gurnell") == Person("Dave", "Gurnell")// true
-```
+  The copy method actually accepts optional parameters matching each of the constructor parameters
+    allowing to differentiate the objects.
+  ```scala
+  dave.copy(firstName = "Dave2") // Person(Dave2,Gurnell)
 
-Finally, the companion object also contains code to implement an extractor pattern for use in pattern matching. We’ll see this later.
+  dave.copy(lastName = "Gurnell2") // Person(Dave,Gurnell2)
+  ```
+
+---
+
+# Object and Classes
+## Features of a case class companion object
+
+* The companion object contains an apply method with the same arguments as the class constructor.
+
+  Scala programmers tend to prefer the apply method over the constructor for the brevity of omitting new,
+  which makes constructors much easier to read inside expressions:
+
+  ```scala
+  Person("Dave", "Gurnell") == Person("Noel", "Welsh") // false
+
+  Person("Dave", "Gurnell") == Person("Dave", "Gurnell") // true
+  ```
+
+* Finally, the companion object also contains code to implement an extractor pattern for
+    use in pattern matching.
 
 
 ---
@@ -660,11 +656,12 @@ Finally, the companion object also contains code to implement an extractor patte
 
 ---
 
-
 # Pattern matching 
 
-We can interact with case classes via pattern matching.  
-Pattern matching is like an extended if expression that allows us to evaluate an expression depending on the “shape” of the data.  
+Pattern matching is like an extended `if` that allows us to evaluate an expression
+    depending on the “shape” of the data.
+
+We can interact with case classes via pattern matching.
 
 ```scala
 object Stormtrooper {
@@ -689,18 +686,15 @@ Stormtrooper.inspect(Person("Han", "Solo")) // Stop, rebel scum!
 
 ---
 
-# Traits 
+# Traits
 
 Traits are templates for creating classes, in the same way that classes are templates for creating objects. 
-Traits allow us to express that multiple classes share a common super-type.
-
+    Traits allow us to express that multiple classes share a common super-type.
 ```scala
 trait Visitor {
   def id: String      // Unique id assigned to each user
   def createdAt: Date // Date this user first visited the site
-
-  // How long has this visitor been around?
-  def age: Long = new Date().getTime - createdAt.getTime
+  def age: Long = new Date().getTime - createdAt.getTime //How long has he been around?
 }
 
 case class Anonymous(
@@ -717,73 +711,23 @@ case class User(
 
 ---
 
-## Sealed traits
-
-When we mark a trait as sealed we must define all of its subtypes in the same file.
-
-```scala
-sealed trait Visitor { /* ... */ }
-final case class User(/* ... */) extends Visitor
-final case class Anonymous(/* ... */) extends Visitor
-```
-
-Once the trait is sealed, the compiler knows the complete set of subtypes and will warn us if a pattern matching expression is missing a case.
-
----
-
-# Modelling Data with Traits
-
-## The Product Type Pattern
-
-Our first pattern is to model data that contains other data. We might describe this as “A has a B and C”. 
-
-```scala
-case class A(b: B, c: C)
-```
-
-or
-
-```scala
-trait A {
-  def b: B
-  def c: C
-}
-```
----
-
-## The Sum Type Pattern
-
-Our next pattern is to model data that is two or more distinct cases. We might describe this as “A is a B or C”. 
-
-We write this using the sealed trait / final case class pattern.
-
-```scala
-sealed trait A
-final case class B() extends A
-final case class C() extends A
-```
-
-## Algebraic Data Types
-
-An algebraic data type is any data that uses the above two patterns.
-
----
-
 # Exercises (4.4.4) 
 
 ---
 
 # Sequencing Computations
-
 ## Generics
 
-Let’s start with a collection that is even simpler than our list—a box that stores a single value. We don’t care what type is stored in the box, but we want to make sure we preserve that type when we get the value out of the box. To do this we use a generic type.
+Let’s start with the simplest collection : a box that stores a single value.
+We want to make sure we preserve that type when we get the value out of the box.
+To do this we use a generic type.
 
 ```scala
 final case class Box[A](value: A)
 ```
 
-The syntax `[A]` is called a type parameter. We can also add type parameters to methods, which limits the scope of the parameter to the method declaration and body:
+The syntax `[A]` is called a type parameter.
+We can also add type parameters to methods :
 
 ```scala
 def generic[A](in: A): A = in
@@ -798,26 +742,18 @@ generic(1) // if we omit the type parameter, scala will infer it
 
 ---
 
-## Generic Algebraic Data Types
-
-```scala
-sealed trait Result[A]
-case class Success[A](result: A) extends Result[A]
-case class Failure[A](reason: String) extends Result[A]
-```
-
-A Result of type A is either a `Success` of type `A` or a `Failure` with a `String` reason.
-
----
-
-# Functions
+# Sequencing Computations
+## Functions
 
 Functions allow us to abstract over methods, turning methods into values that we can pass around and manipulate within our programs.
 
-A function is like a method: we can call it with parameters and it evaluates to a result. Unlike a method a function is value.
+A function is like a method: we can call it with parameters and it evaluates to a result.
+
+Unlike a method a function is an object.
 
 ---
 
+# Sequencing Computations
 ## Function Types
 
 ```scala
@@ -836,7 +772,8 @@ sum(10, 20) // 30
 
 ---
 
-# Tuples
+# Sequencing Computations
+## Tuples
 
 A tuple is the generalisation of a pair to more terms.  
 
@@ -852,7 +789,8 @@ Tuple2("hi", 1)
 
 ---
 
-# Tuples
+# Sequencing Computations
+## Tuples
 
 We can define methods that accept tuples as parameters using the same syntax:
 
@@ -872,93 +810,50 @@ We can also pattern match on tuples as follows :
 
 ---
 
-# Sequencing Computation
-
-Let's define a generic trait called `Maybe` of a generic type `A` with two subtypes, `Full` containing an `A`, and `Empty` containing no value.
-
-```scala
-sealed trait Maybe[A]
-final case class Full[A](value: A) extends Maybe[A]
-final case class Empty[A]() extends Maybe[A]
-```
-
----
-
-## Map
+# Sequencing Computations
+## map
 
 Imagine : 
 
-* we have a `List[Int]` and a function `Int => User`, and we want to get a `List[User]`
+* we have a `List[Int]` and a function `Int => User` then we want to get a `List[User]`
 
-* we have a `Maybe[User]` and a function `User => Order`, and we want a `Maybe[Order]`
+* we have a `Maybe[User]` and a function `User => Order` then we want a `Maybe[Order]`
 
-* we have a sum type representing an error message or a completed order : we have a `Sum[String, Order]` 
-  and a function `Order => Double`, and we want `Sum[String, Double]`
+* we have a `Sum[String, Order]` and a function `Order => Double` then we want `Sum[String, Double]`
 
-What these all have in common is we have a type F[A] and a function A => B, and we want a result F[B]. The method that performs this operation is called `map`.
+What these all have in common is : a type F[A], function A => B and a result F[B].
+
+The method that performs this operation is `map(A => B)`.
 
 ---
 
-## Flatmap
+# Sequencing Computations
+## flatMap
 
 Imagine : 
 
- * we have `List[User]` and a function `User => List[Order]`, and we want `List[Order]`
- * we have `Maybe[User]` and `User => Maybe[Order]`, and we want `Maybe[Order]`
- * we have `Sum[String, Order]` and a function `Order => Sum[String, Id]`, and we want `Sum[String, Id]`
+* we have `List[User]` and a function `User => List[Order]` then we want `List[Order]`
+
+* we have `Maybe[User]` and `User => Maybe[Order]` then we want `Maybe[Order]`
+
+* we have `Sum[String, Order]` and a function `Order => Sum[String, Id]` then we want `Sum[String, Id]`
  
- What these all have in common is we have a type F[A] and a function A => F[B], and we want a result F[B]. The method that performs this operation is called `flatMap`.
+What these all have in common is : a type F[A], a function A => F[B] and a result F[B].
+
+The method that performs this operation is `flatMap(A => F[B])`.
 
 ---
 
+# Sequencing Computations
 ## Functors and Monads
 
-A type like `F[A]` with a `map` method is called a `functor`. If a functor also has a `flatMap` method it is called a `monad`.
-
-
-```scala
-def mightFail1: Maybe[Int] = Full(1)
-
-def mightFail2: Maybe[Int] = Full(2)
-
-def mightFail3: Maybe[Int] = Empty() // This one failed
-```
-
----
-
-## Functors and Monads
-
-We want to run these computations one after another. If any one of them fails the whole computation fails.
-
-```scala
-mightFail1 flatMap { x =>
-  mightFail2 flatMap { y =>
-    mightFail3 flatMap { z =>
-      Full(x + y + z)
-    }
-  }
-}
-```
-
-The result of this is Empty. If we drop mightFail3, leaving just 
-
-```scala
-mightFail1 flatMap { x =>
-  mightFail2 flatMap { y =>
-    Full(x + y)
-  }
-}
-```
-
-The computation succeeds and we get `Full(3)`.
-
----
-
-## Functors and Monads
+A type like `F[A]` with a `map` method is called a `functor`.
+If a functor also has a `flatMap` method it is called a `monad`.
 
 The general idea is a monad represents a value in some context. 
 
-We use map when we want to transform the value within the context to a new value, while keeping the context the same.  
+We use map when we want to transform the value within the context to a new value,
+while keeping the context the same.
 
 We use flatMap when we want to transform the value and provide a new context.
 
@@ -966,103 +861,19 @@ We use flatMap when we want to transform the value and provide a new context.
 
 # Exercises (5.5.4) 
 
-Use `List` instead of LinkedList in 5.5.4.1.
+Use `List` instead of `LinkedList` in 5.5.4.1.
 
 ---
 
-# Variance 
+# Collections
+## Sequences
 
-Example : 
-
-```scala
-sealed trait Maybe[A]
-final case class Full[A](value: A) extends Maybe[A]
-final case class Empty[A]() extends Maybe[A]
-```
-
-Ideally we would like to drop the unused type parameter on Empty.
-It is not possible because `Maybe[A]` is invariant in terms of `A`.
-
----
-
-## Covariance
-
-A type `Foo[+T]` is covariant in terms of `T`, meaning that `Foo[A]` is a supertype of `Foo[B]` if `A` is a supertype of `B`.
+A sequence is a collection of items with a defined and stable order.
+Sequences are one of the most common data structures.
 
 ```scala
-sealed trait Maybe[+A]
-final case class Full[A](value: A) extends Maybe[A]
-case object Empty extends Maybe[Nothing]
-```
+val sequence = Seq(1, 2, 3)
 
----
-
-## Contravariance
-
-A type `Foo[-T]` is contravariant in terms of T, meaning that `Foo[A]` is a subtype of `Foo[B]` if `A` is a supertype of `B`.
-
-```scala
-trait Function0[+R] {
-  def apply: R
-}
-
-trait Function1[-A, +B] {
-  def apply(a: A): B
-}
-
-trait Function2[-A, -B, +C] {
-  def apply(a: A, b: B): C
-}
-```
-
----
-
-## Contravariance
-
-Define a box as follows : 
-
-```scala
-case class Box[A](value: A) {
-  def map[B](func: Function1[A, B]): Box[B] = Box(func(value))
-}
-```
-
-Try to define `func` with super and sub types of `A` and `B`.
-
----
-
-# Type bounds
-
-Type bounds extend to specify subtypes as well as supertypes. 
-
-The syntax is `A <: Type` to declare `A` must be a subtype of `Type` and `A >: Type` to declare a supertype.
-
-```scala
-case class WebAnalytics[A <: Visitor](
-  visitor: A,
-  pageViews: Int,
-  searchTerms: List[String],
-  isOrganic: Boolean
-)
-```
-
----
-
-# Sequences
-
-A sequence is a collection of items with a defined and stable order. Sequences are one of the most common data structures. 
-
-```scala
-val sequence = Seq(1, 2, 3) // List(1, 2, 3)
-```
-
----
-
-## Basic operations
-
-Accessing elements : 
-
-```scala
 sequence.apply(0) // 1
 sequence(0) // sugared syntax
 sequence(3) // java.lang.IndexOutOfBoundsException: 3
@@ -1073,11 +884,13 @@ sequence.headOption // Some(1)
 Seq().headOption // None
 ```
 
-The `Option` class here is Scala’s built-in equivalent of our `Maybe` class from earlier.  
+The `Option` class here is Scala’s built-in equivalent of our `Maybe` class from earlier.
+
 It has two subtypes `Some` and `None` representing the presence and absence of a value respectively.
 
 ---
 
+# Collections
 ## Searching for elements
 
 The `contains` method tells us whether a sequence contains an element (using == for comparison) : 
@@ -1101,6 +914,7 @@ sequence.filter(_ > 1) // List(2, 3)
 
 ---
 
+# Collections
 ## Sorting elements
 
 We can use the `sortWith` method to sort a list using a binary function :
@@ -1111,6 +925,7 @@ sequence.sortWith(_ > _)
 
 ---
 
+# Collections
 ## Appending/prepending elements
 
 We can append an element with the `:+` method:
@@ -1135,11 +950,11 @@ It is more idiomatic to call `+:` as an infix operator. The trailing colon makes
 0 +: sequence // List(0, 1, 2, 3)
 ```
 
-
 Finally we can concatenate entire sequences using the `++` method.
 
 ---
 
+# Collections
 ## Lists
 
 The default implementation of `Seq` is a `List`, which is a classic linked list data structure.  
@@ -1160,8 +975,7 @@ val list = 1 :: 2 :: 3 :: Nil // List(1, 2, 3)
 
 ---
 
-# Working with sequences 
-
+# Collections
 ## Map
 
 ```scala
@@ -1172,24 +986,27 @@ sequence.map(elt => elt * 2) // List(2, 4, 6)
 
 ---
 
+# Collections
 ## FlatMap
 
 ```scala
 Seq("a", "wet", "dog").map(_.permutations.toList)
 // List(List(a), List(wet, wte, ewt, etw, twe, tew), List(dog, dgo, odg, ogd, gdo, god))
+
 Seq("a", "wet", "dog").flatMap(_.permutations.toList) 
 // List(a, wet, wte, ewt, etw, twe, tew, dog, dgo, odg, ogd, gdo, god)
 ```
 ---
 
+# Collections
 ## Folds
 
 The job of these methods is to traverse a sequence and accumulate a result. The types are as follows:
 
-| Method    | We have | We provide        | We get |
-|-----------|---------|-------------------|--------|
-| foldLeft  | Seq[A]  | B and (B, A) => B | B      |
-| foldRight | Seq[A]  | B and (A, B) => B | B      |
+| Method    | We have | We provide        | We get | Notes               |
+|-----------|---------|-------------------|--------|---------------------|
+| foldLeft  | Seq[A]  | B and (B, A) => B | B      | starts on the left  |
+| foldRight | Seq[A]  | B and (A, B) => B | B      | starts on the right |
 
 
 Example : 
@@ -1198,16 +1015,18 @@ Example :
 Seq(1, 2, 3).foldLeft(0)((accu, elem) => accu + elem) // 6
 ```
 
-| Method                             | Operations            | Notes                          |
-|------------------------------------|-----------------------|--------------------------------|
-| `Seq(1, 2, 3).foldLeft(0)(_ + _)`  | `(((0 + 1) + 2) + 3)` | Evaluation starts on the left  |
-| `Seq(1, 2, 3).foldRight(0)(_ + _)` | `(1 + (2 + (3 + 0)))` | Evaluation starts on the right |
+| Method                             | Operations            |
+|------------------------------------|-----------------------|
+| `Seq(1, 2, 3).foldLeft(0)(_ + _)`  | `(((0 + 1) + 2) + 3)` |
+| `Seq(1, 2, 3).foldRight(0)(_ + _)` | `(1 + (2 + (3 + 0)))` |
 
 ---
 
+# Collections
 ## Foreach
 
-Unlike map, `flatMap` and the folds, `foreach` does not return a useful result, we use it purely for its side-effects.
+Unlike map, `flatMap` and the folds, `foreach` does not return a useful result,
+we use it purely for its side-effects.
 
 ```scala
 List(1, 2, 3).foreach(num => println("And a " + num + "..."))
@@ -1222,18 +1041,24 @@ List(1, 2, 3).foreach(num => println("And a " + num + "..."))
 
 ---
 
-## Exercises (6.2.7)
+# Exercises (6.2.7)
 
 ---
 
+# Collections
 ## For comprehensions
 
-Scala has special syntax for working with any class that implements map and flatMap, that makes complicated operations simpler to write. This syntax is known as a `for comprehension`.
+Scala has special syntax for working with any class that implements map and flatMap,
+that makes complicated operations simpler to write.
+This syntax is known as a *for comprehension*.
 
-Important : for comprehensions in Scala are very different to the C-style for loops in Java. There is no direct equivalent of either language’s syntax in the other.
+Important : for comprehensions in Scala are very different to the C-style for loops in Java.
+
+There is no direct equivalent of either language’s syntax in the other.
 
 ---
 
+# Collections
 ## For comprehensions
 
 We know we can write
@@ -1253,6 +1078,7 @@ for {
 
 ---
 
+# Collections
 ## For comprehensions
 
 We can write
@@ -1274,6 +1100,7 @@ for {
 
 ---
 
+# Collections
 ## For comprehensions
 
  A general for comprehension: 
@@ -1294,6 +1121,7 @@ a.flatMap(x => b.flatMap(y => c.map(z => e)))
 
 ---
 
+# Collections
 ## For comprehensions
 
 Note that if we omit the yield keyword before the final expression, the overall type of the for comprehension becomes Unit.  
@@ -1313,7 +1141,8 @@ This version of the for comprehension is executed purely for its side-effects, a
 
 ---
 
-# Options
+# Collections
+## Options
 
 Option is a generic sealed trait with two subtypes : `Some` and `None`. 
 
@@ -1329,18 +1158,16 @@ readInt("abc") // None
 
 ---
 
-# Extracting Values from Options
+# Collections
+## Options
 
-## The getOrElse method
+We can use the `getOrElse` method to extract the contained value :
 
 ```scala
 readInt("123").getOrElse(0) //  123
 readInt("abc").getOrElse(0) //  0
 ```
-
----
-
-## Pattern matching 
+or patter matching :
 
 ```scala
 readInt("123") match {
@@ -1348,12 +1175,13 @@ readInt("123") match {
   case None         => 0
 } //124
 ```
-
 ---
 
-## Map and flatMap
+# Collections
+## Options
 
-One way of thinking about an Option is as a sequence of 0 or 1 elements.  
+One way of thinking about an Option is as a sequence of 0 or 1 elements.
+
 Option supports many of the sequence operations we have seen so far.
 
 ```scala
@@ -1370,16 +1198,18 @@ sum(readInt("a"), readInt("2")) //None
 
 sum(readInt("1"), readInt("b")).getOrElse(0) //0
 ```
+---
 
-`Option` and `Seq` are also compatible in some sense. We can turn a `Seq[Option[A]]` into a `Seq[A]` using `flatMap` :
+
+# Collections
+## Options
+
+`Option` and `Seq` are also compatible in some sense.
+We can turn a `Seq[Option[A]]` into a `Seq[A]` using `flatMap` :
 
 ```scala
 Seq(readInt("1"), readInt("b"), readInt("3")).flatMap(x => x) //List(1, 3)
 ```
-
----
-
-## Options as Flow Control
 
 Because Option supports `map` and `flatMap`, it also works with for comprehensions.
 
@@ -1399,125 +1229,6 @@ for {
 
 ---
 
-# Monads
-
-We’ve seen that by implementing a few methods (map, flatMap, and optionally filter and foreach), we can use any class with a for comprehension.
-Such a class is called a `monad`.
-
-A monad is a generic type that allows us to sequence computations while abstracting away some technicality. 
-We do the sequencing using for comprehensions, worrying only about the programming logic we care about.
-
----
-
-# Monads
-
- * `Option` is a monad that allows us to sequence computations on optional values
-   *  without worrying about the fact that they may or may not be present
-
- * `Seq` is a monad that allows us to sequence computations that return multiple possible answers 
-   * without worrying about the fact that there are lots of possible combinations involved
-
- * `Future` is another popular monad that allows us to sequence asynchronous computations 
-   * without worrying about the fact that they are asynchronous
-
----
-
-# Exercices (6.6.2)   
-
----
-
-## For Comprehensions Redux
-
-It’s quite common to only process selected elements. We can do this with comprehensions by adding an if clause after the generator expression. 
-
-So to process only the positive elements of sequence we could write
-
-```scala
-for(x <- Seq(-2, -1, 0, 1, 2) if x > 0) yield x // List(1, 2)
-```
-
----
-
-## Parallel iteration
-
-Say we have the sequences `Seq(1, 2, 3)` and `Seq(4, 5, 6)`  and we want to add together elements with the same index yielding  `Seq(5, 7 , 9 ) `. If we write
-
-```scala
-for {
-  x <- Seq(1, 2, 3)
-  y <- Seq(4, 5, 6)
-} yield x + y // List(5, 6, 7, 6, 7, 8, 7, 8, 9)
-```
-
-We traverse the first element from the first sequence and then all the elements of the second sequence, then the second element from the first sequence and so on.
-
----
-
-## Parallel iteration
-
-The solution is to zip together the two sequences, giving a sequence containing pairs of corresponding elements
-
-```scala
-Seq(1, 2, 3).zip(Seq(4, 5, 6)) // List((1,4), (2,5), (3,6))
-```
-
-With this we can easily compute the result we wanted
-
-```scala
-for(x <- Seq(1, 2, 3).zip(Seq(4, 5, 6))) yield { 
-  val (a, b) = x
-   a + b 
- } // List(5, 7, 9)
- ```
-
----
-
-## Parallel iteration
-
-
-Sometimes you want to iterate over the values in a sequence and their indices. For this case the zipWithIndex method is provided.
-
-```scala
-for(x <- Seq(1, 2, 3).zipWithIndex) yield x // List((1,0), (2,1), (3,2))
-```
-
-Note that `zip` and `zipWithIndex` are available on all collection classes, including `Map` and `Set`.
-
----
-
-## Pattern matching
-
-The pattern on the left hand side of a generator is not named accidentally. We can include any pattern there and only process results matching the pattern. This provides another way of filtering results. So instead of:
-
-```scala
-for(x <- Seq(1, 2, 3).zip(Seq(4, 5, 6))) yield { 
-  val (a, b) = x 
-  a + b 
-}
-```
-
-we can write:
-
-```scala
-for((a, b) <- Seq(1, 2, 3).zip(Seq(4, 5, 6))) yield a + b
-```
-
----
-
-## Intermediate Results
-
-It is often useful to create an intermediate result within a sequence of generators. We can do this by inserting an assignment expression like so :
-
-```scala
-for {
-  x     <- Seq(1, 2, 3)
-  square = x * x
-  y     <- Seq(4, 5, 6)
-} yield square * y // List(4, 5, 6, 16, 20, 24, 36, 45, 54)
-```
-
----
-
 # Maps
 
 A Map is a collection that maps keys to value
@@ -1529,7 +1240,8 @@ example("a") // 1
 example.get("a") // Some(1)
 ```
 
-As with Seq, the default implementation of Map is immutable. We add and remove elements by creating new maps as opposed to mutating existing ones.
+As with Seq, the default implementation of Map is immutable.
+We add and remove elements by creating new maps as opposed to mutating existing ones.
 
 ---
 
